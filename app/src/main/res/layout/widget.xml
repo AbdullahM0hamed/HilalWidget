@@ -21,7 +21,7 @@
             <TextClock
                 android:textAppearance="@style/WidgetBlackShadow"
                 android:id="@+id/week_text"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:layout_width="wrap_content"
                 android:layout_height="22dp"
                 android:format12Hour="EEEE"
@@ -37,7 +37,7 @@
             <TextClock
                 android:textAppearance="@style/WidgetBlackShadow"
                 android:id="@+id/date_text"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:layout_width="wrap_content"
                 android:layout_height="22dp"
                 android:format12Hour="d MMMM"
@@ -54,7 +54,7 @@
             <TextClock
                 android:textAppearance="@style/WidgetBlackShadow"
                 android:id="@+id/clock_time"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:format12Hour="@string/main_widget_12_hours_format"
