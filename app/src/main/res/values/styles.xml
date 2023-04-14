@@ -1,0 +1,27 @@
+<resources>
+    <style name="DateTextStyleHorizontal">
+        <item name="android:textSize">16dp</item>
+        <item name="android:textColor">#fffafafa</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:gravity">center</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:includeFontPadding">true</item>
+        <item name="android:textAlignment">textStart</item>
+    </style>
+    <style name="WidgetBlackShadow">
+        <item name="android:shadowColor">#99000000</item>
+        <item name="android:shadowDy">1.0</item>
+        <item name="android:shadowRadius">2.0</item>
+    </style>
+    <style name="NumberStyleHorizontal">
+        <item name="android:textSize">65dp</item>
+        <item name="android:textColor">#fffafafa</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+    <style name="AmPmTextStyle">
+        <item name="android:textColor">#fffafafa</item>
+        <item name="android:gravity">bottom</item>
+    </style>
+</resources>
