@@ -6,6 +6,7 @@ import android.content.Context
 import android.widget.RemoteViews
 import kotlin.concurrent.thread
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.File
