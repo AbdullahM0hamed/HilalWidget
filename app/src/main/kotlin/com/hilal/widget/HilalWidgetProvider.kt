@@ -43,7 +43,7 @@ class HilalWidgetProvider : AppWidgetProvider() {
             }
 
             while (!dateJson.exists()) {
-                runBlocking { delay(1, 1000L) }
+                runBlocking { delay(1000L) }
             }
         }
 
