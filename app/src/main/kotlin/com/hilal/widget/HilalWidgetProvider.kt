@@ -31,6 +31,25 @@ class HilalWidgetProvider : AppWidgetProvider() {
         }
     }
 
+    fun getMonth(num: Int): String {
+        val months = listOf(
+            "Muharram",
+            "Safar",
+            "Rabi' Al-Awwal",
+            "Rabi' Ath-Thaani",
+            "Jumada Al-Ulaa",
+            "Jumada Ath-Thaani",
+            "Rajab",
+            "Sha'baan",
+            "Ramadaan",
+            "Shawwaal",
+            "Dhul Qa'dah",
+            "Dhul Hijjah"
+        )
+
+        return months(num - 1)
+    }
+
     fun getHijriDateText(context: Context): String {
         val dateJson = File(context.filesDir, "dates.json")
 
@@ -60,6 +79,7 @@ class HilalWidgetProvider : AppWidgetProvider() {
         val monthKeys = months.keys().asSequence().toList().reversed()
         val latest = monthKeys[0]
         val date = months.getJSONObject(latest).getString("29")
-        return date
+        val parts = date.split("/")
+        return "${parts[0]} ${getMonth(parts[1])}"
     }
 }
