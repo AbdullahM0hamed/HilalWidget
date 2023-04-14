@@ -54,6 +54,12 @@ class HilalWidgetProvider : AppWidgetProvider() {
         val json = JSONObject(text)
         val groups = json.getJSONArray("groups")
         val group = groups.getString(0)
-        return group
+        val dates = json.getJSONObject(group)
+        val years = dates.keys().asSequence().toList().reversed()
+        val months = dates.getJSONObject(years[0])
+        val monthKeys = months.keys().asSequence().toList().reversed()
+        val latest = monthKeys[0]
+        val date = months.getJSONObject(latest).getString("29")
+        return date
     }
 }
