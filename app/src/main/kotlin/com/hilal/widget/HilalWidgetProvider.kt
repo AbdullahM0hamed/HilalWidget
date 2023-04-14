@@ -9,6 +9,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import org.json.JSONObject
 import java.io.File
 
 class HilalWidgetProvider : AppWidgetProvider() {
@@ -43,11 +44,16 @@ class HilalWidgetProvider : AppWidgetProvider() {
                 dateJson.writeText(response!!.body!!.string())
             }
 
+            //Yh yh, find out how to update widget stuff in thread
             while (!dateJson.exists()) {
                 runBlocking { delay(1000L) }
             }
         }
 
-        return dateJson.exists().toString()
+        val text = dateJson.readText()
+        val json = JSONObject(text)
+        val groups = json.getJSONArray("groups")
+        val group = json.getString(0)
+        return group
     }
 }
