@@ -36,7 +36,7 @@ class HilalWidgetProvider : AppWidgetProvider() {
                 .url("http://localhost:8000/hilal-months.json")
                 .build()
             val response = client.newCall(request).execute()
-            dateJson.writeText(response.body().toString())
+            dateJson.writeText(response!!.body!!.toString())
         }
 
         return dateJson.exists().toString()
