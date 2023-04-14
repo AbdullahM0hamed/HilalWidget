@@ -18,16 +18,16 @@ class HilalWidgetProvider : AppWidgetProvider() {
                 context.packageName,
                 R.layout.widget
             ).apply {
-                setTextViewText(R.id.hijri_text, getHijriDateText())
+                setTextViewText(R.id.hijri_text, getHijriDateText(context))
             }
 
             manager.updateAppWidget(appWidgetId, views)
         }
     }
 
-    fun getHijriDateText(): String {
+    fun getHijriDateText(context: Context): String {
         val dateJson = File(this.filesDir, "dates.json")
-        android.widget.Toast.makeText(this, dateJson.exists().toString(), 5)
+        android.widget.Toast.makeText(context, dateJson.exists().toString(), 5)
         return "1/9/1444"
     }
 }
