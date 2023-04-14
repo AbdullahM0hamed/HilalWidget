@@ -7,11 +7,10 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Theme.MaterialComponents.NoActionBar"
         android:resizeableActivity = "true">
         <receiver
             android:name="HilalWidgetProvider"
-            android:export="false">
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
