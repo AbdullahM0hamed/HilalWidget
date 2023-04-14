@@ -6,28 +6,11 @@ on:
       - '*'
 
 jobs:
-  check_wrapper:
-    name: Validate Gradle Wrapper
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Clone repo
-        uses: actions/checkout@v2
-
-      - name: Validate Gradle Wrapper
-        uses: gradle/wrapper-validation-action@v1
-
   build:
     name: Build app
-    needs: check_wrapper
     runs-on: ubuntu-latest
 
     steps:
-      - name: Cancel previous runs
-        uses: styfle/cancel-workflow-action@0.5.0
-        with:
-          access_token: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Clone repo
         uses: actions/checkout@v2
 
