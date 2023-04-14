@@ -47,7 +47,7 @@ class HilalWidgetProvider : AppWidgetProvider() {
             "Dhul Hijjah"
         )
 
-        return months(num.toInt() - 1)
+        return months[num.toInt() - 1]
     }
 
     fun getHijriDateText(context: Context): String {
