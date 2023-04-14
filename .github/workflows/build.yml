@@ -44,22 +44,22 @@ jobs:
           dependencies-cache-enabled: true
           configuration-cache-enabled: true
 
-      - name: Sign APK
-        uses: r0adkll/sign-android-release@v1
-        with:
-          releaseDirectory: app/build/outputs/apk/release
-          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
-          alias: ${{ secrets.ALIAS }}
-          keyStorePassword: ${{ secrets.PASSWORD }}
-          keyPassword: ${{ secrets.PASSWORD }}
+      #- name: Sign APK
+        #uses: r0adkll/sign-android-release@v1
+        #with:
+          #releaseDirectory: app/build/outputs/apk/release
+          #signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          #alias: ${{ secrets.ALIAS }}
+          #keyStorePassword: ${{ secrets.PASSWORD }}
+          #keyPassword: ${{ secrets.PASSWORD }}
 
       - name: Rename Artifact
         run: |
           cd app/build/outputs/apk/release
-          mv app-release-unsigned-signed.apk AnimeDL.apk
+          mv app-release-unsigned.apk HilalWidget.apk
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: AnimeDL
-          path: app/build/outputs/apk/release/AnimeDL.apk
+          name: HilalWidget
+          path: app/build/outputs/apk/release/HilalWidget.apk
