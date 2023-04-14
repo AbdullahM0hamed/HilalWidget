@@ -20,6 +20,8 @@ class HilalWidgetProvider : AppWidgetProvider() {
             ).apply {
                 setTextViewText(R.id.hijri_text, getHijriDateText())
             }
+
+            appWidgetManager.updateAppWidget(appWidgetId, views)
         }
     }
 
