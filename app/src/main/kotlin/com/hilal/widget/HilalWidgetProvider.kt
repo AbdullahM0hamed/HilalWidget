@@ -6,9 +6,9 @@ import android.content.Context
 import android.widget.RemoteViews
 import java.io.File
 
-class HilalWidgetProvider : AppWidgetProvider {
+class HilalWidgetProvider : AppWidgetProvider() {
 
-    public fun onUpdate(
+    override fun onUpdate(
         context: Context,
         manager: AppWidgetManager,
         appWidgetIds: IntArray
@@ -24,8 +24,8 @@ class HilalWidgetProvider : AppWidgetProvider {
     }
 
     fun getHijriDateText(): String {
-        val dateJson = File(this.filesDir, "dates.json")
-        android.widget.Toast.makeText(this, dateJson.exists().toString(), 5)
+        //val dateJson = File(this.filesDir, "dates.json")
+        //android.widget.Toast.makeText(this, dateJson.exists().toString(), 5)
         return "1/9/1444"
     }
 }
