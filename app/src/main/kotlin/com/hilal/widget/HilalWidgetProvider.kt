@@ -4,6 +4,8 @@ import android.appwidget.AppWidgetProvider
 import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.widget.RemoteViews
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import java.io.File
 
 class HilalWidgetProvider : AppWidgetProvider() {
@@ -27,6 +29,15 @@ class HilalWidgetProvider : AppWidgetProvider() {
 
     fun getHijriDateText(context: Context): String {
         val dateJson = File(context.filesDir, "dates.json")
+
+        if (!dateJson.exists()) {
+            val client = OkHttpClient.Builder().build()
+            val request = Request.Builder()
+                .url("http://localhost:8000/hilal-months.json")
+                .build()
+            val response = client.newCall(request).execute()
+            dateJson.writeText(response.body().toString())
+        }
 
         return dateJson.exists().toString()
     }
