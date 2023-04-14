@@ -31,7 +31,7 @@ class HilalWidgetProvider : AppWidgetProvider() {
         }
     }
 
-    fun getMonth(num: Int): String {
+    fun getMonth(num: String): String {
         val months = listOf(
             "Muharram",
             "Safar",
@@ -47,7 +47,7 @@ class HilalWidgetProvider : AppWidgetProvider() {
             "Dhul Hijjah"
         )
 
-        return months(num - 1)
+        return months(num.toInt() - 1)
     }
 
     fun getHijriDateText(context: Context): String {
