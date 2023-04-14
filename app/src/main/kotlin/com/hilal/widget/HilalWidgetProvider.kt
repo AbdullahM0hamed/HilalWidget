@@ -53,7 +53,7 @@ class HilalWidgetProvider : AppWidgetProvider() {
         val text = dateJson.readText()
         val json = JSONObject(text)
         val groups = json.getJSONArray("groups")
-        val group = json.getString(0)
+        val group = groups.getString(0)
         return group
     }
 }
