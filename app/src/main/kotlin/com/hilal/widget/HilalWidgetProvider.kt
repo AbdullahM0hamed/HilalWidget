@@ -26,8 +26,8 @@ class HilalWidgetProvider : AppWidgetProvider() {
     }
 
     fun getHijriDateText(): String {
-        //val dateJson = File(this.filesDir, "dates.json")
-        //android.widget.Toast.makeText(this, dateJson.exists().toString(), 5)
+        val dateJson = File(this.filesDir, "dates.json")
+        android.widget.Toast.makeText(this, dateJson.exists().toString(), 5)
         return "1/9/1444"
     }
 }
