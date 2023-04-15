@@ -11,6 +11,11 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONObject
 import java.io.File
+import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormat
+import java.time.LocalDate
+import java.time.Period
+import java.util.Date
 
 class HilalWidgetProvider : AppWidgetProvider() {
 
@@ -80,6 +85,11 @@ class HilalWidgetProvider : AppWidgetProvider() {
         val latest = monthKeys[0]
         val date = months.getJSONObject(latest).getString("29")
         val parts = date.split("/")
-        return "${parts[0]} ${getMonth(parts[1])}"
+        val current = LocalDate.now()
+        val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+        val doubtDay = LocalDate.parse(date, formatter)
+        val days = Period.between(current, doubtDay).days
+
+        return "${29 - days} ${getMonth(latest)}"
     }
 }
