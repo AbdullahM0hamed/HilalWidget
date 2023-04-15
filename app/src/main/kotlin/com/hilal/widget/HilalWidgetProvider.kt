@@ -86,7 +86,7 @@ class HilalWidgetProvider : AppWidgetProvider() {
         val date = months.getJSONObject(latest).getString("29")
         val parts = date.split("/")
         val current = LocalDate.now()
-        val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+        val formatter = DateTimeFormatter.ofPattern("dd/M/yyyy")
         val doubtDay = LocalDate.parse(date, formatter)
         val days = Period.between(current, doubtDay).days
 
