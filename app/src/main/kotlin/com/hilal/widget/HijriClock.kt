@@ -32,7 +32,7 @@ class HijriClock(
     val attrs: AttributeSet
 ) : TextClock(context, attrs) {
     init {
-        setText(getHijriDate(context)
+        setText(getHijriDate(context))
     }
 
     private fun onTimeChanged() {
@@ -58,7 +58,7 @@ class HijriClock(
         return months[num.toInt() - 1]
     }
 
-    fun getHijriDateText(context: Context): String {
+    fun getHijriDate(context: Context): String {
         val dateJson = File(context.filesDir, "dates.json")
 
         if (!dateJson.exists()) {
@@ -91,7 +91,6 @@ class HijriClock(
         val current = LocalDate.now()
         val formatter = DateTimeFormatter.ofPattern("dd/M/yyyy")
         val doubtDay = LocalDate.parse(date, formatter)
-        val sub = if (next) 1 else 0
         val time = Calendar.getInstance()
         val hours = time.get(Calendar.HOUR_OF_DAY)
         val sub = if (hours >= 18) {
