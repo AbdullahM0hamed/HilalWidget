@@ -28,15 +28,15 @@ import java.util.Date
 
 
 class HijriClock(
-    val context: Context,
+    val ctx: Context,
     val attrs: AttributeSet
-) : TextClock(context, attrs) {
+) : TextClock(ctx, attrs) {
     init {
-        setText(getHijriDate(context))
+        setText(getHijriDate(ctx))
     }
 
     private fun onTimeChanged() {
-        setText(getHijriDate(context))
+        setText(getHijriDate(ctx))
     }
 
     fun getMonth(num: String): String {
@@ -58,8 +58,8 @@ class HijriClock(
         return months[num.toInt() - 1]
     }
 
-    fun getHijriDate(context: Context): String {
-        val dateJson = File(context.filesDir, "dates.json")
+    fun getHijriDate(ctx: Context): String {
+        val dateJson = File(ctx.filesDir, "dates.json")
 
         if (!dateJson.exists()) {
             thread {
