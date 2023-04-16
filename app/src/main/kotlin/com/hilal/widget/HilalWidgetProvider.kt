@@ -117,8 +117,8 @@ class HilalWidgetProvider : AppWidgetProvider() {
     }
 
     fun scheduleUpdate(context: Context) {
-        val alarmManager = context.getSystemService(Context.ALARM_Service) as AlarmManager
-        val intent = Intent(contect, HilalWidgetProvider::class.java)
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(context, HilalWidgetProvider::class.java)
         intent.action = SCHEDULED
         val pendingIntent = PendingIntent.getBroadcast(
             context,
@@ -128,9 +128,9 @@ class HilalWidgetProvider : AppWidgetProvider() {
         )
 
         //Just gonna use 18:30 as roughly sunset
-        val sunset = Calendar.instance()
+        val sunset = Calendar.instance
         sunset.set(Calendar.HOUR_OF_DAY, 18)
-        sunset.set(Calendar.MINUTE_OF_DAY, 30)
+        sunset.set(Calendar.MINUTE, 30)
         sunset.add(Calendar.DAY_OF_YEAR, 1)
 
         alarmManager.set(
