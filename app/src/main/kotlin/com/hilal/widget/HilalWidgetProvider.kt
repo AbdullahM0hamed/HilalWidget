@@ -29,16 +29,14 @@ class HilalWidgetProvider : AppWidgetProvider() {
         manager: AppWidgetManager,
         appWidgetIds: IntArray
     ) {
-        //appWidgetIds.forEach { appWidgetId ->
-            //val views: RemoteViews = RemoteViews(
-                //context.packageName,
-                //R.layout.widget
-            //).apply {
-                //setTextViewText(R.id.hijri_text, getHijriDateText(context))
-            //}
+        appWidgetIds.forEach { appWidgetId ->
+            val views: RemoteViews = RemoteViews(
+                context.packageName,
+                R.layout.widget
+            )
 
-            //manager.updateAppWidget(appWidgetId, views)
-        //}
+            manager.updateAppWidget(appWidgetId, views)
+        }
     }
 
     //fun getMonth(num: String): String {
