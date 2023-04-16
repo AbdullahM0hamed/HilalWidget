@@ -128,7 +128,7 @@ class HilalWidgetProvider : AppWidgetProvider() {
         )
 
         //Just gonna use 18:30 as roughly sunset
-        val sunset = Calendar.instance
+        val sunset = Calendar.getInstance()
         sunset.set(Calendar.HOUR_OF_DAY, 18)
         sunset.set(Calendar.MINUTE, 30)
         sunset.add(Calendar.DAY_OF_YEAR, 1)
