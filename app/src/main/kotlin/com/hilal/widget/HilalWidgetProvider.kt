@@ -32,7 +32,7 @@ class HilalWidgetProvider : AppWidgetProvider() {
         if (intent.action == SCHEDULED) {
             val manager = AppWidgetManager.getInstance(context)
             val ids = manager.getAppWidgetIds(
-                ComponentName(context, HilalWidgetProvider::class)
+                ComponentName(context, HilalWidgetProvider::class.java)
             )
             onUpdate(context, manager, ids)
         }
@@ -118,7 +118,7 @@ class HilalWidgetProvider : AppWidgetProvider() {
 
     fun scheduleUpdate(context: Context) {
         val alarmManager = context.getSystemService(Context.ALARM_Service) as AlarmManager
-        val intent = Intent(contect, HilalWidgetProvider::class)
+        val intent = Intent(contect, HilalWidgetProvider::class.java)
         intent.action = SCHEDULED
         val pendingIntent = PendingIntent.getBroadcast(
             context,
