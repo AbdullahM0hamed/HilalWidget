@@ -32,11 +32,13 @@ class HijriClock(
     val attrs: AttributeSet
 ) : TextClock(ctx, attrs) {
     init {
-        setText(getHijriDate(ctx))
+        //setText(getHijriDate(ctx))
+        setText("Test")
     }
 
     private fun onTimeChanged() {
-        setText(getHijriDate(ctx))
+        //setText(getHijriDate(ctx))
+        setText("Test")
     }
 
     fun getMonth(num: String): String {
