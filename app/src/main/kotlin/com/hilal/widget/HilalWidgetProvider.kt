@@ -1,8 +1,13 @@
 package com.hilal.widget
 
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.appwidget.AppWidgetProvider
 import android.appwidget.AppWidgetManager
+import android.content.ComponentName
 import android.content.Context
+import android.content.Intent
+import android.os.Build
 import android.widget.RemoteViews
 import kotlin.concurrent.thread
 import kotlinx.coroutines.delay
@@ -15,9 +20,25 @@ import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
 import java.time.LocalDate
 import java.time.Period
+import java.util.Calendar
 import java.util.Date
 
 class HilalWidgetProvider : AppWidgetProvider() {
+    companion object {
+        const val SCHEDULED = "com.hilal.widget.SCHEDULED"
+    }
+
+    override fun onReceive(context: Context, intent: Intent) {
+        if (intent.action == SCHEDULED) {
+            val manager = AppWidgetManager.getInstance(context)
+            val ids = manager.getAppWidgetIds(
+                ComponentName(context, HilalWidgetProvider.class)
+            )
+            onUpdate(context, manager, ids)
+        }
+
+        super.onReceive(context, intent)
+    }
 
     override fun onUpdate(
         context: Context,
@@ -34,6 +55,8 @@ class HilalWidgetProvider : AppWidgetProvider() {
 
             manager.updateAppWidget(appWidgetId, views)
         }
+
+        scheduleUpdate(context)
     }
 
     fun getMonth(num: String): String {
@@ -91,5 +114,29 @@ class HilalWidgetProvider : AppWidgetProvider() {
         val days = Period.between(current, doubtDay).days
 
         return "${29 - days} ${getMonth(latest)}"
+    }
+
+    fun scheduleUpdate(context: Context) {
+        val alarmManager = context.getSystemService(Context.ALARM_Service) as AlarmManager
+        val intent = Intent(contect, HilalWidgetProvider.class)
+        intent.action = SCHEDULED
+        val pendingIntent = PendingIntent.getBroadcast(
+            context,
+            0,
+            intent,
+            0
+        )
+
+        //Just gonna use 18:30 as roughly sunset
+        val sunset = Calendar.instance()
+        sunset.set(Calendar.HOUR_OF_DAY, 18)
+        sunset.set(Calendar.MINUTE_OF_DAY, 30)
+        sunset.add(Calendar.DAY_OF_YEAR, 1)
+
+        alarmManager.set(
+            AlarmManager.RTC_WAKEUP,
+            sunset.timeInMillis,
+            pendingIntent
+        )
     }
 }
