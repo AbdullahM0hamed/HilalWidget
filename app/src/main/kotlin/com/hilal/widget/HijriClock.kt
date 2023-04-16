@@ -36,7 +36,7 @@ class HijriClock(
     }
 
     private fun onTimeChanged() {
-        setText(getHijriDate())
+        setText(getHijriDate(context))
     }
 
     fun getMonth(num: String): String {
