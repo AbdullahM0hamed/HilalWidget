@@ -27,7 +27,7 @@
                 android:format12Hour="EEEE"
                 android:format24Hour="EEEE"
                 style="@style/DateTextStyleHorizontal" />
-            <TextView
+            <com.hilal.widget.HijriClock
                 android:textAppearance="@style/WidgetBlackShadow"
                 android:id="@+id/hijri_text"
                 android:visibility="visible"
