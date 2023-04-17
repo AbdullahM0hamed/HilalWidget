@@ -18,7 +18,7 @@
             android:layout_height="match_parent"
             android:layout_marginStart="17dp"
             android:layout_toStartOf="@+id/clock_layout">
-            <TextClock
+            <TextView
                 android:textAppearance="@style/WidgetBlackShadow"
                 android:id="@+id/week_text"
                 android:visibility="visible"
