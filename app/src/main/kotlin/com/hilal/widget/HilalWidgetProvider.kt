@@ -39,24 +39,21 @@ class HilalWidgetProvider : AppWidgetProvider() {
                 context.packageName,
                 R.layout.widget
             ).apply {
-                setTextViewText(R.id.hijri_text, getHijriDate())
+                setTextViewText(R.id.hijri_text, getHijriDate(context))
 
                 val day = if (isPastSix()) {
                     "${
-                        LocaleDate.now().minusDays(-1).getDayOfWeek().name()
+                        LocalDate.now().minusDays(-1).getDayOfWeek().name()
                     }/${
-                        LocaleDate.now().getDayOfWeek().name()
+                        LocalDate.now().getDayOfWeek().name()
                     }"
                 } else {
-                    LocaleDate.now().getDayOfWeek().name()
+                    LocalDate.now().getDayOfWeek().name()
                 }
             }
 
             manager.updateAppWidget(appWidgetId, views)
         }
-    }
-
-    fun getDay(num: Int) = when (num) {
     }
 
     fun getMonth(num: String): String {
