@@ -18,6 +18,7 @@ import org.json.JSONObject
 import java.io.File
 import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
+import java.time.format.TextStyle
 import java.time.LocalDate
 import java.time.Period
 import java.util.Calendar
@@ -41,8 +42,8 @@ class HilalWidgetProvider : AppWidgetProvider() {
             ).apply {
                 setTextViewText(R.id.hijri_text, getHijriDate(context))
 
-                val today = LocalDate.now().getDayOfWeek().name()
-                val tomorrow = LocalDate.now().minusDays(-1).getDayOfWeek().name()
+                val today = LocalDate.now().getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault())
+                val tomorrow = LocalDate.now().minusDays(-1).getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault())
                 val day = if (isPastSix()) {
                     "$tomorrow/$today"
                 } else {
