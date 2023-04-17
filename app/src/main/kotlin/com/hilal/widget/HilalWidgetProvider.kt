@@ -22,21 +22,41 @@ import java.time.LocalDate
 import java.time.Period
 import java.util.Calendar
 import java.util.Date
+import java.util.Locale
 
 class HilalWidgetProvider : AppWidgetProvider() {
+
+    lateinit var calendar: Calendar
+
     override fun onUpdate(
         context: Context,
         manager: AppWidgetManager,
         appWidgetIds: IntArray
     ) {
+        calendar = Calendar.getInstance()
         appWidgetIds.forEach { appWidgetId ->
             val views: RemoteViews = RemoteViews(
                 context.packageName,
                 R.layout.widget
-            )
+            ).apply {
+                setTextViewText(R.id.hijri_text, getHijriDate())
+
+                val day = if (isPastSix()) {
+                    "${
+                        LocaleDate.now().minusDays(-1).getDayOfWeek().name()
+                    }/${
+                        LocaleDate.now().getDayOfWeek().name()
+                    }"
+                } else {
+                    LocaleDate.now().getDayOfWeek().name()
+                }
+            }
 
             manager.updateAppWidget(appWidgetId, views)
         }
+    }
+
+    fun getDay(num: Int) = when (num) {
     }
 
     fun getMonth(num: String): String {
@@ -58,7 +78,12 @@ class HilalWidgetProvider : AppWidgetProvider() {
         return months[num.toInt() - 1]
     }
 
-    fun getHijriDateText(context: Context): String {
+    fun isPastSix(): Boolean {
+        val hours = calendar.get(Calendar.HOUR_OF_DAY)
+        return hours >= 18
+    }
+
+    fun getHijriDate(context: Context): String {
         val dateJson = File(context.filesDir, "dates.json")
 
         if (!dateJson.exists()) {
@@ -91,9 +116,7 @@ class HilalWidgetProvider : AppWidgetProvider() {
         val current = LocalDate.now()
         val formatter = DateTimeFormatter.ofPattern("dd/M/yyyy")
         val doubtDay = LocalDate.parse(date, formatter)
-        val time = Calendar.getInstance()
-        val hours = time.get(Calendar.HOUR_OF_DAY)
-        val sub = if (hours >= 18) {
+        val sub = if (isPastSix()) {
             1
         } else {
             0
