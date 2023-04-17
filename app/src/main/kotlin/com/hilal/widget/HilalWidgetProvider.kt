@@ -41,14 +41,12 @@ class HilalWidgetProvider : AppWidgetProvider() {
             ).apply {
                 setTextViewText(R.id.hijri_text, getHijriDate(context))
 
+                val today = LocalDate.now().getDayOfWeek().name()
+                val tomorrow = LocalDate.now().minusDays(-1).getDayOfWeek().name()
                 val day = if (isPastSix()) {
-                    "${
-                        LocalDate.now().minusDays(-1).getDayOfWeek().name()
-                    }/${
-                        LocalDate.now().getDayOfWeek().name()
-                    }"
+                    "$tomorrow/$today"
                 } else {
-                    LocalDate.now().getDayOfWeek().name()
+                    today
                 }
             }
 
