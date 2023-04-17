@@ -49,6 +49,7 @@ class HilalWidgetProvider : AppWidgetProvider() {
                 } else {
                     today
                 }
+                setTextViewText(R.id.week_text, day)
             }
 
             manager.updateAppWidget(appWidgetId, views)
