@@ -64,7 +64,7 @@
                 android:textAppearance="@style/WidgetBlackShadow"
                 android:textSize="16dp"
                 android:id="@+id/ampm_text"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10.5dp"

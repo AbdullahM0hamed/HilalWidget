@@ -4,15 +4,24 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <application
+        android:theme="@style/Transparent"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:resizeableActivity = "true">
+        <activity
+            android:excludeFromRecents="true"
+            android:name=".HilalConfigActivity">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
         <receiver
-            android:name="HilalWidgetProvider"
+            android:name=".HilalWidgetProvider"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+		<action android:name="com.hilal.widget.action.UPDATE" />
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"

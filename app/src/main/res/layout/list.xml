@@ -1,0 +1,62 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+	android:background="#424242"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/row_one"
+        android:layout_height="45dp"
+        android:layout_width="match_parent">
+
+        <TextView
+            android:id="@+id/desc"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_width="wrap_content"
+            android:text="Select Group:"
+            android:textSize="17dp"
+            android:textColor="#ffffff" />
+
+        <Spinner
+            android:id="@+id/group"
+            android:popupBackground="@drawable/spinner_corners"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_toEndOf="@+id/desc"
+            android:layout_width="wrap_content"
+            android:textSize="17dp"
+            android:text="New Crescent Society" 
+            android:textColor="#ffffff" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/row_two"
+        android:layout_below="@+id/row_one"
+        android:layout_height="45dp"
+        android:layout_width="match_parent">
+
+        <TextView
+            android:id="@+id/desc_two"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_width="wrap_content"
+            android:text="Select Text Color:" 
+            android:textSize="17dp"
+            android:textColor="#ffffff" />
+
+        <ImageView
+            android:id="@+id/colour"
+            android:background="@drawable/circle"
+            android:layout_centerVertical="true"
+            android:layout_height="24dp"
+            android:layout_marginStart="15dp"
+            android:layout_toEndOf="@+id/desc_two"
+            android:layout_width="24dp"
+            android:textSize="17dp"
+            android:textColor="#ffffff" />
+    </RelativeLayout>
+</RelativeLayout>
