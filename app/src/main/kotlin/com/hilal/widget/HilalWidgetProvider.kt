@@ -10,6 +10,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
 import android.widget.RemoteViews
+import com.hilal.widget.R
 import kotlin.concurrent.thread
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
@@ -98,23 +99,8 @@ class HilalWidgetProvider : AppWidgetProvider() {
     override fun onEnabled(context: Context) {
     }
 
-    fun getMonth(num: String): String {
-        val months = listOf(
-            "Muharram",
-            "Safar",
-            "Rabi' Al-Awwal",
-            "Rabi' Ath-Thaani",
-            "Jumada Al-Ulaa",
-            "Jumada Ath-Thaani",
-            "Rajab",
-            "Sha'baan",
-            "Ramadaan",
-            "Shawwaal",
-            "Dhul Qa'dah",
-            "Dhul Hijjah"
-        )
-
-        return months[num.toInt() - 1]
+    fun getMonth(context: Context, num: String): String {
+        return context.resources.getStringArray(R.array.months)[num.toInt() - 1]
     }
 
     fun isPastSix(): Boolean {
@@ -182,6 +168,6 @@ class HilalWidgetProvider : AppWidgetProvider() {
             day = "30"
             latest = monthKeys[1]
         }
-        return "$day ${getMonth(latest)}"
+        return "$day ${getMonth(context, latest)}"
     }
 }

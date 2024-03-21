@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="months">
+        <item>Muḥarram</item>
+        <item>Ṣafar</item>
+        <item>Rabī\' Ul-Awwal</item>
+	<item>Rabī\' Uth-Thānī</item>
+	<item>Jumāda Al-Ūlā</item>
+	<item>Jumāda Ath-Thānī</item>
+        <item>Rajab</item>
+	<item>Sha\'bān</item>
+	<item>Ramaḍān</item>
+        <item>Dhul Qa\'dah</item>
+        <item>Dhul Ḥijjah</item>
+    </string-array>
+</resources>
