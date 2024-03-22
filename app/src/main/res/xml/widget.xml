@@ -3,4 +3,5 @@
     android:minWidth="360dp"
     android:minHeight="130dp"
     android:updatePeriodMillis="60000" 
+    android:previewImage="@drawable/time_widget_preview"
     android:initialLayout="@layout/widget" />

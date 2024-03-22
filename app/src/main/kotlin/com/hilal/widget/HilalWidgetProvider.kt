@@ -9,7 +9,9 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
+import android.view.View
 import android.widget.RemoteViews
+import android.widget.TextView
 import com.hilal.widget.R
 import kotlin.concurrent.thread
 import kotlinx.coroutines.delay
@@ -39,8 +41,12 @@ class HilalWidgetProvider : AppWidgetProvider() {
     ) { 
         val action = intent.getAction() 
         if (action == "com.hilal.widget.action.UPDATE") {
-            val widgetId = intent.getIntExtra("appWidgetId", 0)
-            onUpdate(context, AppWidgetManager.getInstance(context), intArrayOf(widgetId))
+            val widgetIds = AppWidgetManager
+                    .getInstance(context)
+                    .getAppWidgetIds(
+                        ComponentName(context, HilalWidgetProvider::class.java)
+                    )
+            onUpdate(context, AppWidgetManager.getInstance(context), widgetIds)
         } else {
             super.onReceive(context, intent)
         }
@@ -61,6 +67,19 @@ class HilalWidgetProvider : AppWidgetProvider() {
             ).apply {
                 setTextViewText(R.id.hijri_text, getHijriDate(context))
                 setTextColor(R.id.hijri_text, selectedColor)
+                setTextColor(R.id.ampm_text, selectedColor)
+
+                val showGroup = prefs.getBoolean("show_group", false)
+                if (showGroup) {
+                    setViewVisibility(R.id.sighting_group, View.VISIBLE)
+                    val json = getDateJson(context)
+                    val groups = json.getJSONArray("groups")
+                    val group = groups.getString(prefs.getInt("groups", 0))
+                    setTextViewText(R.id.sighting_group, group)
+                    setTextColor(R.id.sighting_group, selectedColor)
+                } else {
+                    setViewVisibility(R.id.sighting_group, View.GONE)
+                }
 
                 val today = LocalDate.now().getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault())
                 val tomorrow = LocalDate.now().minusDays(-1).getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault())

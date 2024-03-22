@@ -43,6 +43,13 @@
                 android:format12Hour="d MMMM"
                 android:format24Hour="d MMMM"
                 style="@style/DateTextStyleHorizontal" />
+            <TextView
+                android:textAppearance="@style/WidgetBlackShadow"
+                android:id="@+id/sighting_group"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                style="@style/DateTextStyleHorizontal" />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/clock_layout"

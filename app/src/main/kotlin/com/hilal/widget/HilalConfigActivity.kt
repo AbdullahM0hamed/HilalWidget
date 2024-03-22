@@ -9,6 +9,7 @@ import android.graphics.PorterDuff
 import android.os.Bundle
 import android.appwidget.AppWidgetManager
 import android.widget.ArrayAdapter
+import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.RemoteViews
 import android.widget.Spinner
@@ -50,13 +51,19 @@ class HilalConfigActivity : AppCompatActivity(), ColorPickerDialogListener {
         val groupArray = Array(groups.length()) {
             groups.getString(it)
         }
+
+        var showGroup = prefs.getBoolean("show_group", false)
+        val checkbox: CheckBox = view.findViewById(R.id.check)
+        checkbox.isChecked = showGroup
+
+        val ctx = this
         val dialog = AlertDialog.Builder(ContextThemeWrapper(this, R.style.CustomDialog))
             .setPositiveButton("Positive") { _, _ ->
-                android.widget.Toast.makeText(this, groupArray.indexOf(spinner.getSelectedItem()).toString(), 5).show()
                 val prefs = this.getSharedPreferences("settings", Context.MODE_PRIVATE)
                 val editor = prefs.edit()
                 editor.putInt("groups", groupArray.indexOf(spinner.getSelectedItem()))
                 editor.putInt("color", selectedColor)
+                editor.putBoolean("show_group", checkbox.isChecked)
                 editor.apply()
             
                 val appWidgetId = intent?.extras?.getInt(
@@ -67,7 +74,7 @@ class HilalConfigActivity : AppCompatActivity(), ColorPickerDialogListener {
                 AppWidgetManager.getInstance(this).updateAppWidget(appWidgetId, views)
                 val resultValue = Intent().putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
                 setResult(Activity.RESULT_OK, resultValue)
-                val intent = Intent()
+                val intent = Intent(ctx, HilalWidgetProvider::class.java)
                 intent.setPackage("com.hilal.widget")
                 intent.setAction("com.hilal.widget.action.UPDATE")
                 sendBroadcast(intent)
