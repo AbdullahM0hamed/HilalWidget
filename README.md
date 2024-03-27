@@ -24,6 +24,6 @@
 
 # TODO
 
-1: Automatically update when new sighting data is available
+- [ ] - Calculate sunset
 
-2: Calculate sunset
+- [ ] - Weather widget with hijri date + weather info
