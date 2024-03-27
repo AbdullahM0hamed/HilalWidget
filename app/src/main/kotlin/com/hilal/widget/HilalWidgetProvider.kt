@@ -21,6 +21,7 @@ import okhttp3.Request
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.File
+import java.nio.charset.StandardCharsets
 import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
@@ -41,12 +42,7 @@ class HilalWidgetProvider : AppWidgetProvider() {
     ) { 
         val action = intent.getAction() 
         if (action == "com.hilal.widget.action.UPDATE") {
-            val widgetIds = AppWidgetManager
-                    .getInstance(context)
-                    .getAppWidgetIds(
-                        ComponentName(context, HilalWidgetProvider::class.java)
-                    )
-            onUpdate(context, AppWidgetManager.getInstance(context), widgetIds)
+            update(context, this)
         } else {
             super.onReceive(context, intent)
         }
@@ -60,19 +56,20 @@ class HilalWidgetProvider : AppWidgetProvider() {
         prefs = context.getSharedPreferences("settings", Context.MODE_PRIVATE)
         val selectedColor = prefs.getInt("color", 0xFFFAFAFA.toInt())
         calendar = Calendar.getInstance()
+        val provider = this
         appWidgetIds.forEach { appWidgetId ->
             val views: RemoteViews = RemoteViews(
                 context.packageName,
                 R.layout.widget
             ).apply {
-                setTextViewText(R.id.hijri_text, getHijriDate(context))
+                setTextViewText(R.id.hijri_text, getHijriDate(context, provider))
                 setTextColor(R.id.hijri_text, selectedColor)
                 setTextColor(R.id.ampm_text, selectedColor)
 
                 val showGroup = prefs.getBoolean("show_group", false)
                 if (showGroup) {
                     setViewVisibility(R.id.sighting_group, View.VISIBLE)
-                    val json = getDateJson(context)
+                    val json = getDateJson(context, provider)
                     val groups = json.getJSONArray("groups")
                     val group = groups.getString(prefs.getInt("groups", 0))
                     setTextViewText(R.id.sighting_group, group)
@@ -128,23 +125,36 @@ class HilalWidgetProvider : AppWidgetProvider() {
     }
 
     companion object {
-        fun getDateJson(context: Context): JSONObject {
-            val dateJson = File(context.filesDir, "dates.json")
+        fun update(context: Context, provider: HilalWidgetProvider?) {
+              val widgetIds = AppWidgetManager
+                      .getInstance(context)
+                      .getAppWidgetIds(
+                          ComponentName(context, HilalWidgetProvider::class.java)
+                      )
+              provider?.onUpdate(context, AppWidgetManager.getInstance(context), widgetIds)
+        }
 
-            if (!dateJson.exists()) {
-                thread {
+        fun getDateJson(context: Context, provider: HilalWidgetProvider?): JSONObject {
+            val dateJson = File(context.filesDir, "dates.json")
+            var dateText = ""
+            if (dateJson.exists()) {
+                dateText = dateJson.readText(StandardCharsets.UTF_8)
+            }
+
+            thread {
+                try {
                     val client = OkHttpClient.Builder().build()
                     val request = Request.Builder()
-                    .url("https://raw.githubusercontent.com/AbdullahM0hamed/HilalMonths/master/hilal-months.json")
-                    .build()
+                        .url("https://raw.githubusercontent.com/AbdullahM0hamed/HilalMonths/master/hilal-months.json")
+                        .build()
                     val response = client.newCall(request).execute()
                     dateJson.writeText(response!!.body!!.string())
-                }
+                    update(context, provider)
+                } catch (e: Exception) {}
+            }
 
-                //Yh yh, find out how to update widget stuff in thread
-                while (!dateJson.exists()) {
-                    runBlocking { delay(1000L) }
-                }
+            while (!dateJson.exists()) {
+                runBlocking { delay(1000L) }
             }
 
             val text = dateJson.readText()
@@ -156,8 +166,8 @@ class HilalWidgetProvider : AppWidgetProvider() {
         }
     }
 
-    fun getHijriDate(context: Context): String {
-        val json = getDateJson(context)
+    fun getHijriDate(context: Context, provider: HilalWidgetProvider): String {
+        val json = getDateJson(context, provider)
         val groups = json.getJSONArray("groups")
         val group = groups.getString(prefs.getInt("groups", 0))
         val dates = json.getJSONObject(group)

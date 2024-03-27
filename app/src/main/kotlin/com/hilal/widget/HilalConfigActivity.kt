@@ -47,7 +47,7 @@ class HilalConfigActivity : AppCompatActivity(), ColorPickerDialogListener {
 
         val view = LayoutInflater.from(this).inflate(R.layout.list, null, false)
         val spinner: Spinner = view.findViewById(R.id.group)
-        val groups = HilalWidgetProvider.getGroups(HilalWidgetProvider.getDateJson(this))
+        val groups = HilalWidgetProvider.getGroups(HilalWidgetProvider.getDateJson(this, null))
         val groupArray = Array(groups.length()) {
             groups.getString(it)
         }
